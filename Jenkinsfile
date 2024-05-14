@@ -1,7 +1,7 @@
 pipeline{
 	agent{ label 'Jenkins-Agent'}
 	tools {
-		jdk 'Jdk17'
+		jdk 'Java17'
 		maven 'Maven1'
 	}
 	stages{
@@ -15,7 +15,7 @@ pipeline{
 				git branch: 'main', credentialsId: 'github', url: 'https://github.com/deepakrk0520/accounts'
 			}
 		}
-		stage("Build Application"){
+		stage("Build Application1"){
 			steps{
 				sh "mvn clean package"
 			}
