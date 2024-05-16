@@ -41,9 +41,7 @@ pipeline{
 		}
 		stage("Compile") {
     			steps {
-       				sh """
-         			mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.txt
-       				"""
+	    			def pomProjectVersion = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
     			}
 		}
 		stage("Build & Push Docker Image") {
