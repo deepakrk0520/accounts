@@ -48,7 +48,8 @@ pipeline{
 
                     docker.withRegistry('',DOCKER_PASS) {
                         
-			    docker_image.push(docker.io/jaanvideepak/dockerhub:s4)
+			    docker_image.push(docker.io/jaanvideepak/dockerhub)
+			    docker_image.push('latest')
                     }
                 }
             }
