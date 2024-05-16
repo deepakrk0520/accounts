@@ -39,18 +39,11 @@ pipeline{
 				sh "mvn test"
 			}
 		}
-		stage("Build & Push Docker Image") {
-            		steps {
-                		script {
-                    			
-
-                    			docker.withRegistry('',DOCKER_PASS) {
-                        			
-                        			docker push jaanvideepak/dockerhub:rel-1.0
-                    			}
-                		}
-            		}
-
-       		}
+		stage('Docker Build') {
+      			agent any
+      			steps {
+       				 sh 'docker build -t jaanvideepak/dockerhub:latest .'
+     			 }
+  		  }
 	}
 }
