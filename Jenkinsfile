@@ -47,7 +47,7 @@ pipeline{
                     			}
 
                     			docker.withRegistry('',DOCKER_PASS) {
-                        			docker_image.push("${IMAGE_TAG}")
+                        			docker_image.push(jaanvideepak/dockerhub:1.0)
                         			docker_image.push('latest')
                     			}
                 		}
