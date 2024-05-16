@@ -42,7 +42,7 @@ pipeline{
 
                     			docker.withRegistry('',DOCKER_PASS) {
                         			docker_image = docker.build "${IMAGE_NAME}"
-			    			docker_image.push('docker.io/jaanvideepak/dockerhub')
+			    			docker_image.push('docker.io/jaanvideepak/deepakrk0520/accounts')
 			    			docker_image.push('latest')
                     			}
                 		}
