@@ -39,21 +39,28 @@ pipeline{
 				sh "mvn test"
 			}
 		}
+		stage("Compile") {
+    			steps {
+       				sh """
+         			mvn help:evaluate -Dexpression=project.version -q -DforceStdout > version.txt
+       				"""
+    			}
+		}
 		stage("Build & Push Docker Image") {
-            steps {
-                script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
+            		steps {
+                		script {
+                    			docker.withRegistry('',DOCKER_PASS) {
+                        			docker_image = docker.build "${IMAGE_NAME}"
+                    			}
 
-                    docker.withRegistry('',DOCKER_PASS) {
+                    			docker.withRegistry('',DOCKER_PASS) {
                         
-			    docker_image.push(docker.io/jaanvideepak/dockerhub)
-			    docker_image.push('latest')
-                    }
-                }
-            }
+			    		docker_image.push(docker.io/jaanvideepak/dockerhub)
+			    		docker_image.push('latest')
+                    			}
+                		}
+            		}
 
-       }
+       		}
 	}
 }
