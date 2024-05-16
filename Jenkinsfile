@@ -47,7 +47,8 @@ pipeline{
                     }
 
                     docker.withRegistry('',DOCKER_PASS) {
-                        docker image push docker.io/jaanvideepak/dockerhub:s4
+                        
+			    docker_image.push(docker.io/jaanvideepak/dockerhub:s4)
                     }
                 }
             }
