@@ -24,11 +24,6 @@ pipeline{
 				git branch: 'main', credentialsId: 'github', url: 'https://github.com/deepakrk0520/accounts'
 			}
 		}
-		stage("Build Application1"){
-			steps{
-				sh "mvn clean package"
-			}
-		}
 		stage("Build Application"){
 			steps{
 				sh "mvn clean package"
