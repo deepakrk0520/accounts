@@ -39,11 +39,7 @@ pipeline{
 				sh "mvn test"
 			}
 		}
-		stage("Compile") {
-    			steps {
-	    			def pomProjectVersion = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-    			}
-		}
+		
 		stage("Build & Push Docker Image") {
             		steps {
                 		script {
