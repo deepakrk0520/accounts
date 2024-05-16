@@ -42,13 +42,11 @@ pipeline{
 		stage("Build & Push Docker Image") {
             		steps {
                 		script {
-                    			docker.withRegistry('',DOCKER_PASS) {
-                        			docker_image = docker.build "${IMAGE_NAME}"
-                    			}
+                    			
 
                     			docker.withRegistry('',DOCKER_PASS) {
-                        			docker_image.push(jaanvideepak/dockerhub:1.0)
-                        			docker_image.push('latest')
+                        			
+                        			docker push jaanvideepak/dockerhub:rel-1.0
                     			}
                 		}
             		}
