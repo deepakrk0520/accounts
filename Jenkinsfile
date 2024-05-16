@@ -10,7 +10,7 @@ pipeline{
             DOCKER_USER = "deepakrk0520"
             DOCKER_PASS = 'dockerhub'
             IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-            
+            DOCKER_REGISTRY = 'https://index.docker.org'
 	    
     	}
 	stages{
@@ -36,18 +36,16 @@ pipeline{
 		}
 		
 		stage("Build & Push Docker Image") {
-            		steps {
-                		script {
-                    			
-
-                    			docker.withRegistry('',DOCKER_PASS) {
-                        			docker_image = docker.build "${IMAGE_NAME}"
-			    			docker_image.push('docker.io/jaanvideepak/dockerhub')
-			    			docker_image.push('latest')
-                    			}
-                		}
-            		}
-
-       		}
+    			steps {
+      				script {
+        				withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          					docker.withRegistry(DOCKER_REGISTRY, DOCKER_PASS) { // Use retrieved credentials
+            						docker_image = docker.build "${IMAGE_NAME}"  // Build the image
+            						docker_image.push("${DOCKER_REGISTRY}/${IMAGE_NAME}") // Push using image name with registry
+          					}
+        				}
+      				}
+    			}
+  		}
 	}
 }
