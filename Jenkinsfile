@@ -39,11 +39,19 @@ pipeline{
 				sh "mvn test"
 			}
 		}
-		stage('Docker Build') {
-      			agent any
-      			steps {
-       				 sh 'docker build -t jaanvideepak/dockerhub:latest .'
-     			 }
-  		  }
+		stage("Build & Push Docker Image") {
+            steps {
+                script {
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker image push docker.io/jaanvideepak/dockerhub:s4
+                    }
+                }
+            }
+
+       }
 	}
 }
